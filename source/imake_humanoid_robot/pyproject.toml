@@ -3,15 +3,15 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "berkeley_humanoid_lite"
+name = "imake_humanoid_robot"
 version = "2025.09.07"
-description = "Training environment for Berkeley Humanoid Lite"
+description = "Training environment for iMake Humanoid Robot"
 authors = [
-    { name = "Berkeley Humanoid Project Developers" },
+    { name = "iMake Humanoid Robot Project Developers" },
     { name = "-T.K.-" },
 ]
 maintainers = [
-    { name = "Berkeley Humanoid Project Developers" },
+    { name = "iMake Humanoid Robot Project Developers" },
     { name = "-T.K.-" },
 ]
 readme = "README.md"
@@ -28,8 +28,8 @@ dependencies = [
 ]
 
 [project.urls]
-repository = "https://github.com/HybridRobotics/Berkeley-Humanoid-Lite"
+repository = "https://github.com/imakeinnovation/iMake-Humanoid-Robot"
 
 [tool.setuptools]
-packages = ["berkeley_humanoid_lite"]
+packages = ["imake_humanoid_robot"]
 zip-safe = false 

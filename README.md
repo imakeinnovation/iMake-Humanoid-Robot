@@ -1,4 +1,4 @@
-# Berkeley Humanoid Lite
+# iMake Humanoid Robot
 
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://docs.python.org/3/whatsnew/3.11.html)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/license/mit)
@@ -7,21 +7,21 @@
 **[Website](http://lite.berkeley-humanoid.org/)** | **[arXiv](https://arxiv.org/abs/2504.17249)** | **[Paper](https://lite.berkeley-humanoid.org/static/paper/demonstrating-berkeley-humanoid-lite.pdf)** | **[Video](https://youtu.be/dIdJGkMDFl4?si=SRD7HhQQbhM3JCRA)** | **[Documentation](https://berkeley-humanoid-lite.gitbook.io/berkeley-humanoid-lite-docs)** | **[Releases](https://berkeley-humanoid-lite.gitbook.io/docs/releases)**
 
 
-Berkeley Humanoid Lite is an open-source, sub-$5,000 humanoid robot featuring modular 3D-printed gearboxes and widely available components, designed to democratize and advance humanoid robotics research.
+iMake Humanoid Robot is an open-source, sub-$5,000 humanoid robot featuring modular 3D-printed gearboxes and widely available components, designed to democratize and advance humanoid robotics research.
 
 This project is built on the values of open-source, accessibility, and customization, and it's continuously evolving. We welcome your feedback, issues, and pull requests on GitHub or joining our Discord.
 
 ## Overview
 
-This repository is the workspace for the Berkeley Humanoid Lite project that contains everything we need, including policy training, sim2sim validation, real-world deployment, motion capture, and teleoperated manipulation controls.
+This repository is the workspace for the iMake Humanoid Robot project that contains everything we need, including policy training, sim2sim validation, real-world deployment, motion capture, and teleoperated manipulation controls.
 
 Functionalities are organized into several submodules. We arrange the directory structure following the Isaac Lab convention, where each submodule can be installed as an extension:
 
-- `source/berkeley_humanoid_lite/` contains the IsaacLab environment and task definitions.
+- `source/imake_humanoid_robot/` contains the IsaacLab environment and task definitions.
 
-- `source/berkeley_humanoid_lite_assets/` contains robot descriptions (URDF, MJCF, and USD) and the script to export these description files from Onshape project.
+- `source/imake_humanoid_robot_assets/` contains robot descriptions (URDF, MJCF, and USD) and the script to export these description files from Onshape project.
 
-- `source/berkeley_humanoid_lite_lowlevel/` contains the lowlevel code running on the real robot. Only contents inside this folder are required to deploy to the real robot.
+- `source/imake_humanoid_robot_lowlevel/` contains the lowlevel code running on the real robot. Only contents inside this folder are required to deploy to the real robot.
 
 Except a few edge cases, all the commands should be invoked from the root directory of this repository. The entry points of different flows are collected in the `scripts/` directory.
 
