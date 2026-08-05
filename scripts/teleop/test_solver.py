@@ -15,7 +15,7 @@ import pinocchio as pin
 class Solver():
     def __init__(
         self,
-        urdf_path: str = "./source/berkeley_humanoid_lite_assets/data/urdf/berkeley_humanoid_lite.urdf"
+        urdf_path: str = "./source/imake_humanoid_robot_assets/data/robots/imake_humanoid_robot/imake_humanoid_robot/urdf/imake_humanoid_robot.urdf"
     ):
         # extract the directory of the urdf file to locate asset files
         urdf_package_path = os.path.dirname(urdf_path)

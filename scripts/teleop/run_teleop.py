@@ -14,7 +14,7 @@ import meshcat_shapes
 from cc.udp import UDP
 from loop_rate_limiters import RateLimiter
 
-from berkeley_humanoid_lite_lowlevel.robot.bimanual import Bimanual
+from imake_humanoid_robot_lowlevel.robot.bimanual import Bimanual
 
 
 np.set_printoptions(precision=2)
@@ -23,7 +23,7 @@ np.set_printoptions(precision=2)
 class TeleopIkSolver():
     def __init__(
         self,
-        urdf_path: str = "./source/berkeley_humanoid_lite_assets/data/urdf/berkeley_humanoid_lite.urdf"
+        urdf_path: str = "./source/imake_humanoid_robot_assets/data/robots/imake_humanoid_robot/imake_humanoid_robot/urdf/imake_humanoid_robot.urdf"
     ):
         # extract the directory of the urdf file to locate asset files
         urdf_package_path = os.path.dirname(urdf_path)

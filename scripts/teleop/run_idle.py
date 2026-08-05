@@ -3,7 +3,7 @@
 import numpy as np
 from loop_rate_limiters import RateLimiter
 
-from berkeley_humanoid_lite_lowlevel.robot.bimanual import Bimanual
+from imake_humanoid_robot_lowlevel.robot.bimanual import Bimanual
 
 
 np.set_printoptions(precision=3, suppress=True)

@@ -5,7 +5,7 @@ import threading
 import numpy as np
 from cc.udp import UDP
 
-from berkeley_humanoid_lite.environments import MujocoVisualizer, Cfg
+from imake_humanoid_robot.environments import MujocoVisualizer, Cfg
 
 
 if __name__ == "__main__":

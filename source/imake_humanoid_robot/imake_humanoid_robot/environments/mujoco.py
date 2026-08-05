@@ -7,8 +7,8 @@ import torch
 import mujoco
 import mujoco.viewer
 
-from berkeley_humanoid_lite_lowlevel.policy.config import Cfg
-from berkeley_humanoid_lite_lowlevel.policy.gamepad import Se2Gamepad
+from imake_humanoid_robot_lowlevel.policy.config import Cfg
+from imake_humanoid_robot_lowlevel.policy.gamepad import Se2Gamepad
 
 
 def quat_rotate_inverse(q: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
@@ -35,9 +35,15 @@ class MujocoEnv:
 
         # Load appropriate MJCF model based on robot configuration
         if cfg.num_joints == 22:
-            self.mj_model = mujoco.MjModel.from_xml_path("source/berkeley_humanoid_lite_assets/data/mjcf/bhl_scene.xml")
+            self.mj_model = mujoco.MjModel.from_xml_path(
+                "source/imake_humanoid_robot_assets/data/robots/imake_humanoid_robot/imake_humanoid_robot/mjcf/"
+                "imake_humanoid_robot_scene.xml"
+            )
         else:
-            self.mj_model = mujoco.MjModel.from_xml_path("source/berkeley_humanoid_lite_assets/data/mjcf/bhl_biped_scene.xml")
+            self.mj_model = mujoco.MjModel.from_xml_path(
+                "source/imake_humanoid_robot_assets/data/robots/imake_humanoid_robot/imake_humanoid_robot/mjcf/"
+                "imake_humanoid_robot_biped_scene.xml"
+            )
 
         self.mj_data = mujoco.MjData(self.mj_model)
         self.mj_model.opt.timestep = self.cfg.physics_dt
@@ -45,7 +51,7 @@ class MujocoEnv:
 
 
 class MujocoVisualizer(MujocoEnv):
-    """MuJoCo simulation environment for the Berkeley Humanoid Lite robot.
+    """MuJoCo simulation environment for the iMake Humanoid Robot.
 
     This class handles the physics simulation, state observation, and control
     of the robot in the MuJoCo environment.
@@ -98,7 +104,7 @@ class MujocoVisualizer(MujocoEnv):
 
 
 class MujocoSimulator(MujocoEnv):
-    """MuJoCo simulation environment for the Berkeley Humanoid Lite robot.
+    """MuJoCo simulation environment for the iMake Humanoid Robot.
 
     This class handles the physics simulation, state observation, and control
     of the robot in the MuJoCo environment.

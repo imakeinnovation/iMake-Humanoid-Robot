@@ -9,9 +9,9 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 from isaaclab.utils import configclass
 
-import berkeley_humanoid_lite.tasks.locomotion.velocity.mdp as mdp
-from berkeley_humanoid_lite.tasks.locomotion.velocity.velocity_env_cfg import LocomotionVelocityEnvCfg
-from berkeley_humanoid_lite_assets.robots.berkeley_humanoid_lite import HUMANOID_LITE_CFG, HUMANOID_LITE_JOINTS
+import imake_humanoid_robot.tasks.locomotion.velocity.mdp as mdp
+from imake_humanoid_robot.tasks.locomotion.velocity.velocity_env_cfg import LocomotionVelocityEnvCfg
+from imake_humanoid_robot_assets.robots.imake_humanoid_robot import IMAKE_HUMANOID_ROBOT_BIPED_CFG, IMAKE_HUMANOID_ROBOT_LEG_JOINTS
 
 
 ##
@@ -31,9 +31,9 @@ class CommandsCfg:
         rel_standing_envs=0.02,
         rel_heading_envs=1.0,
         ranges=mdp.UniformVelocityCommandCfg.Ranges(
-            lin_vel_x=(-1.0, 1.0),
-            lin_vel_y=(-0.5, 0.5),
-            ang_vel_z=(-1.5, 1.5),
+            lin_vel_x=(-0.5, 0.5),
+            lin_vel_y=(-0.25, 0.25),
+            ang_vel_z=(-1.0, 1.0),
             heading=(-math.pi, math.pi),
         ),
     )
@@ -62,12 +62,12 @@ class ObservationsCfg:
         )
         joint_pos = ObsTerm(
             func=mdp.joint_pos_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=HUMANOID_LITE_JOINTS, preserve_order=True)},
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=IMAKE_HUMANOID_ROBOT_LEG_JOINTS, preserve_order=True)},
             noise=Unoise(n_min=-0.05, n_max=0.05),
         )
         joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=HUMANOID_LITE_JOINTS, preserve_order=True)},
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=IMAKE_HUMANOID_ROBOT_LEG_JOINTS, preserve_order=True)},
             noise=Unoise(n_min=-2.0, n_max=2.0),
         )
         actions = ObsTerm(func=mdp.last_action)
@@ -94,7 +94,7 @@ class ActionsCfg:
 
     joint_pos = mdp.JointPositionActionCfg(
         asset_name="robot",
-        joint_names=HUMANOID_LITE_JOINTS,
+        joint_names=IMAKE_HUMANOID_ROBOT_LEG_JOINTS,
         scale=0.25,
         preserve_order=True,
         use_default_offset=True,
@@ -109,12 +109,12 @@ class RewardsCfg:
     # command tracking performance
     track_lin_vel_xy_exp = RewTerm(
         func=mdp.track_lin_vel_xy_yaw_frame_exp,
-        params={"command_name": "base_velocity", "std": 0.5},
+        params={"command_name": "base_velocity", "std": 0.25},
         weight=2.0,
     )
     track_ang_vel_z_exp = RewTerm(
         func=mdp.track_ang_vel_z_world_exp,
-        params={"command_name": "base_velocity", "std": 0.5},
+        params={"command_name": "base_velocity", "std": 0.25},
         weight=1.0,
     )
 
@@ -137,23 +137,23 @@ class RewardsCfg:
     # ensure the robot is standing upright
     flat_orientation_l2 = RewTerm(
         func=mdp.flat_orientation_l2,
-        weight=-1.0,
+        weight=-2.0,
     )
 
     # joint motion smoothness
     action_rate_l2 = RewTerm(
         func=mdp.action_rate_l2,
-        weight=-0.001,
+        weight=-0.01,
     )
     dof_torques_l2 = RewTerm(
         func=mdp.joint_torques_l2,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=HUMANOID_LITE_JOINTS)},
-        weight=-2.0e-5,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=IMAKE_HUMANOID_ROBOT_LEG_JOINTS)},
+        weight=-2.0e-3,
     )
     dof_acc_l2 = RewTerm(
         func=mdp.joint_acc_l2,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=HUMANOID_LITE_JOINTS)},
-        weight=-1.0e-7,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=IMAKE_HUMANOID_ROBOT_LEG_JOINTS)},
+        weight=-1.0e-6,
     )
     dof_pos_limits = RewTerm(
         func=mdp.joint_pos_limits,
@@ -167,9 +167,9 @@ class RewardsCfg:
         params={
             "command_name": "base_velocity",
             "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_ankle_roll"),
-            "threshold": 0.5,
+            "threshold": 0.4,
         },
-        weight=2.0,
+        weight=1.0,
     )
     # penalize feet sliding on the ground to exploit physics sim inaccuracies
     feet_slide = RewTerm(
@@ -185,7 +185,7 @@ class RewardsCfg:
     undesired_contacts = RewTerm(
         func=mdp.undesired_contacts,
         params={
-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["base", ".*_hip_.*", ".*_knee_.*", ".*_shoulder_.*", ".*_elbow_.*"]),
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["base", ".*_hip_.*", ".*_knee_.*"]),
             "threshold": 1.0,
         },
         weight=-1.0,
@@ -195,22 +195,12 @@ class RewardsCfg:
     joint_deviation_hip = RewTerm(
         func=mdp.joint_deviation_l1,
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_hip_yaw_joint", ".*_hip_roll_joint"])},
-        weight=-1.0,
+        weight=-0.2,
     )
     joint_deviation_ankle_roll = RewTerm(
         func=mdp.joint_deviation_l1,
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_ankle_roll_joint"])},
-        weight=-1.0,
-    )
-    joint_deviation_shoulder = RewTerm(
-        func=mdp.joint_deviation_l1,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_shoulder_pitch_joint", ".*_shoulder_roll_joint", ".*_shoulder_yaw_joint"])},
-        weight=-1.0,
-    )
-    joint_deviation_elbow = RewTerm(
-        func=mdp.joint_deviation_l1,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_elbow_pitch_joint", ".*_elbow_roll_joint"])},
-        weight=-1.0,
+        weight=-0.2,
     )
 
 
@@ -291,11 +281,11 @@ class EventsCfg:
     )
     reset_robot_joints = EventTerm(
         func=mdp.reset_joints_by_scale,
+        mode="reset",
         params={
             "position_range": (0.5, 1.5),
             "velocity_range": (0.0, 0.0),
         },
-        mode="reset",
     )
     base_external_force_torque = EventTerm(
         func=mdp.apply_external_force_torque,
@@ -303,6 +293,8 @@ class EventsCfg:
             "asset_cfg": SceneEntityCfg("robot", body_names="base"),
             "force_range": (-2.0, 2.0),
             "torque_range": (-2.0, 2.0),
+            # "force_range": (-3.0, 3.0),
+            # "torque_range": (-3.0, 3.0),
         },
         mode="reset",
     )
@@ -310,9 +302,9 @@ class EventsCfg:
     # === Interval behaviors ===
     # push_robot = EventTerm(
     #     func=mdp.push_by_setting_velocity,
-    #     params={"velocity_range": {"x": (-1.0, 1.0), "y": (-1.0, 1.0)}},
     #     mode="interval",
     #     interval_range_s=(10.0, 15.0),
+    #     params={"velocity_range": {"x": (-1.0, 1.0), "y": (-1.0, 1.0)}},
     # )
 
 
@@ -324,7 +316,7 @@ class CurriculumsCfg:
 
 
 @configclass
-class BerkeleyHumanoidLiteEnvCfg(LocomotionVelocityEnvCfg):
+class ImakeHumanoidRobotBipedEnvCfg(LocomotionVelocityEnvCfg):
 
     # Policy commands
     commands: CommandsCfg = CommandsCfg()
@@ -356,5 +348,4 @@ class BerkeleyHumanoidLiteEnvCfg(LocomotionVelocityEnvCfg):
         self.decimation = 8
 
         # Scene
-        self.scene.robot = HUMANOID_LITE_CFG.replace(prim_path="{ENV_REGEX_NS}/robot")
-
+        self.scene.robot = IMAKE_HUMANOID_ROBOT_BIPED_CFG.replace(prim_path="{ENV_REGEX_NS}/robot")

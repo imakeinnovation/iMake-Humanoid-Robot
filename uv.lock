@@ -13,10 +13,10 @@ required-markers = [
 
 [manifest]
 members = [
-    "berkeley-humanoid-lite",
-    "berkeley-humanoid-lite-assets",
-    "berkeley-humanoid-lite-lowlevel",
-    "berkeley-humanoid-lite-workspace",
+    "imake-humanoid-robot",
+    "imake-humanoid-robot-assets",
+    "imake-humanoid-robot-lowlevel",
+    "imake-humanoid-robot-workspace",
 ]
 
 [[package]]
@@ -257,9 +257,9 @@ wheels = [
 ]
 
 [[package]]
-name = "berkeley-humanoid-lite"
+name = "imake-humanoid-robot"
 version = "2025.9.7"
-source = { editable = "source/berkeley_humanoid_lite" }
+source = { editable = "source/imake_humanoid_robot" }
 dependencies = [
     { name = "psutil", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
 ]
@@ -268,9 +268,9 @@ dependencies = [
 requires-dist = [{ name = "psutil" }]
 
 [[package]]
-name = "berkeley-humanoid-lite-assets"
+name = "imake-humanoid-robot-assets"
 version = "2025.9.7"
-source = { editable = "source/berkeley_humanoid_lite_assets" }
+source = { editable = "source/imake_humanoid_robot_assets" }
 dependencies = [
     { name = "onshape-to-robot", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "pymeshlab", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
@@ -283,9 +283,9 @@ requires-dist = [
 ]
 
 [[package]]
-name = "berkeley-humanoid-lite-lowlevel"
+name = "imake-humanoid-robot-lowlevel"
 version = "2025.9.7"
-source = { editable = "source/berkeley_humanoid_lite_lowlevel" }
+source = { editable = "source/imake_humanoid_robot_lowlevel" }
 dependencies = [
     { name = "psutil", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
 ]
@@ -294,13 +294,13 @@ dependencies = [
 requires-dist = [{ name = "psutil" }]
 
 [[package]]
-name = "berkeley-humanoid-lite-workspace"
+name = "imake-humanoid-robot-workspace"
 version = "1.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "berkeley-humanoid-lite", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "berkeley-humanoid-lite-assets", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "berkeley-humanoid-lite-lowlevel", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "imake-humanoid-robot", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "imake-humanoid-robot-assets", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "imake-humanoid-robot-lowlevel", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "cc-udp", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "inputs", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "isaaclab", extra = ["all", "isaacsim"], marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
@@ -324,9 +324,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "berkeley-humanoid-lite", editable = "source/berkeley_humanoid_lite" },
-    { name = "berkeley-humanoid-lite-assets", editable = "source/berkeley_humanoid_lite_assets" },
-    { name = "berkeley-humanoid-lite-lowlevel", editable = "source/berkeley_humanoid_lite_lowlevel" },
+    { name = "imake-humanoid-robot", editable = "source/imake_humanoid_robot" },
+    { name = "imake-humanoid-robot-assets", editable = "source/imake_humanoid_robot_assets" },
+    { name = "imake-humanoid-robot-lowlevel", editable = "source/imake_humanoid_robot_lowlevel" },
     { name = "cc-udp" },
     { name = "inputs" },
     { name = "isaaclab", extras = ["isaacsim", "all"], specifier = "==2.3.2.post1", index = "https://pypi.nvidia.com/" },

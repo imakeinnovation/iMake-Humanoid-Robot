@@ -3,11 +3,11 @@ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, R
 
 
 @configclass
-class BerkeleyHumanoidLitePPORunnerCfg(RslRlOnPolicyRunnerCfg):
+class ImakeHumanoidRobotBipedPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 6000
     save_interval = 100
-    experiment_name = "humanoid"
+    experiment_name = "biped"
     empirical_normalization = False
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,

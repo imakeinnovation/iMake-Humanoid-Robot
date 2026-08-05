@@ -4,8 +4,8 @@
 import numpy as np
 import torch
 
-from berkeley_humanoid_lite_lowlevel.policy.rl_controller import RlController
-from berkeley_humanoid_lite.environments import MujocoSimulator, Cfg
+from imake_humanoid_robot_lowlevel.policy.rl_controller import RlController
+from imake_humanoid_robot.environments import MujocoSimulator, Cfg
 
 
 # Load configuration

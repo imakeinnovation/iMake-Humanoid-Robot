@@ -20,7 +20,7 @@ import gymnasium as gym
 from prettytable import PrettyTable
 
 # Import extensions to set up environment tasks
-import berkeley_humanoid_lite.tasks  # noqa: F401
+import imake_humanoid_robot.tasks  # noqa: F401
 
 
 def main():
