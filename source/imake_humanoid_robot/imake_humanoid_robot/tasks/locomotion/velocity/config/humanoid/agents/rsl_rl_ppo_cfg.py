@@ -8,6 +8,7 @@ class ImakeHumanoidRobotPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     max_iterations = 6000
     save_interval = 100
     experiment_name = "humanoid"
+    load_run = r"\d.*"
     empirical_normalization = False
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
