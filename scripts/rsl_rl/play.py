@@ -176,7 +176,7 @@ def main():
     OmegaConf.save(deploy_config, "configs/policy_latest.yaml")
 
     # reset environment
-    obs, _ = env.get_observations()
+    obs = env.get_observations()
     timestep = 0
     # simulate environment
     while simulation_app.is_running():
