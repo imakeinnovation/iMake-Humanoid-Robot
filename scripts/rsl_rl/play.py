@@ -97,10 +97,10 @@ def main():
     # export policy to onnx/jit
     export_model_dir = os.path.join(os.path.dirname(resume_path), "exported")
     export_policy_as_jit(
-        ppo_runner.alg.policy, ppo_runner.obs_normalizer, path=export_model_dir, filename="policy.pt"
+        ppo_runner.alg.policy, ppo_runner.alg.policy.actor_obs_normalizer, path=export_model_dir, filename="policy.pt"
     )
     export_policy_as_onnx(
-        ppo_runner.alg.policy, normalizer=ppo_runner.obs_normalizer, path=export_model_dir, filename="policy.onnx"
+        ppo_runner.alg.policy, normalizer=ppo_runner.alg.policy.actor_obs_normalizer, path=export_model_dir, filename="policy.onnx"
     )
 
     # === export the yaml config for deployment ===
@@ -176,7 +176,7 @@ def main():
     OmegaConf.save(deploy_config, "configs/policy_latest.yaml")
 
     # reset environment
-    obs, _ = env.get_observations()
+    obs = env.get_observations()
     timestep = 0
     # simulate environment
     while simulation_app.is_running():
