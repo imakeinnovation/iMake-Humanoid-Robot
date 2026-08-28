@@ -26,6 +26,20 @@ Functionalities are organized into several submodules. We arrange the directory 
 Except a few edge cases, all the commands should be invoked from the root directory of this repository. The entry points of different flows are collected in the `scripts/` directory.
 
 
+## Lab / developer status
+
+Day-to-day lab work is on branch **`ubuntu`**. Plain-language status of the
+monorepo and robot bring-up:
+
+- [docs/DEVELOPER_REPORT.md](docs/DEVELOPER_REPORT.md) — workspace overview
+- [source/imake_humanoid_robot_lowlevel/docs/DEVELOPER_REPORT.md](source/imake_humanoid_robot_lowlevel/docs/DEVELOPER_REPORT.md) — robot PC / CAN detail
+- Low-level operator docs: [STATUS.md](source/imake_humanoid_robot_lowlevel/docs/STATUS.md), [BRINGUP.md](source/imake_humanoid_robot_lowlevel/docs/BRINGUP.md)
+
+**Hardware note:** the biped is not walkable yet (one Recoil online as of the
+2026-08-27 lab snapshot). Do not run full `Humanoid()` / RL until actuators
+ping on can0 and can1.
+
+
 ## Getting Started
 
 Please refer to our [Documentation](https://berkeley-humanoid-lite.gitbook.io/docs) to get started with software and hardware setup.
